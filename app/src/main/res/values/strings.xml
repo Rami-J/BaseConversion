@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Base Conversion</string>
+    <string name="hint_text">Enter number here</string>
+    <string name="spinner_prompt">Select One</string>
+    <string name="button_text">Convert</string>
+    <string-array name="base_choices">
+        <item>Decimal</item>
+        <item>Binary</item>
+        <item>Octal</item>
+        <item>Hexadecimal</item>
+    </string-array>
+</resources>
