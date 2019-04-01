@@ -155,6 +155,7 @@ public class BaseConverter
 	 * @param num, choice
 	 * @return result
 	 */
+	// TODO: FIX DECIMAL TO HEX CONVERTER
 	public static String convertDecimal(int num, String choice)
 	{
 		String s = num + "";
@@ -184,10 +185,19 @@ public class BaseConverter
 			{
 				if ( num % 16 > 9 )
 				{
-
+					for (int j = 0; j < HEX_CHARS.length; j++)
+					{
+						if (num % 16 == HEX_VALS[j])
+						{
+							temp += HEX_CHARS[j];
+							break;
+						}
+					}
 				}
-
-				temp += num % 16 + "";
+				else
+				{
+					temp += num % 16 + "";
+				}
 				num /= 16;
 			}
 		}
@@ -201,6 +211,41 @@ public class BaseConverter
 		{
 			result += temp.charAt(i);
 		}
+
+		return result;
+	}
+
+	/**
+	 * This function removes trailing zeroes that appear in the front of a given string.
+	 * @param str the string to trim
+	 * @return result
+	 */
+	public static String trimZeroes(String str)
+	{
+		String result = "";
+		int len;
+
+		if (str == null)
+			return null;
+
+		len = str.length();
+
+		for (int i = 0; i < len; i++)
+		{
+			if (str.charAt(i) == '0')
+			{
+				result = str.substring(i + 1);
+			}
+			else
+			{
+				result = str.substring(i);
+				break;
+			}
+		}
+
+		// if the given string was a string of all zeroes return a single zero string
+		if (result.equals(""))
+			return "0";
 
 		return result;
 	}

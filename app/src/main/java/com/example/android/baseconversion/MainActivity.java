@@ -131,6 +131,9 @@ public class MainActivity extends AppCompatActivity
 			resultString = BaseConverter.convertHexadecimal(hexString, selectedItem2);
 		}
 
+		// remove any trailing zeroes in the front of the string and any trailing spaces
+		resultString = BaseConverter.trimZeroes(resultString);
+		resultString = resultString.trim();
 		displayResult(resultString);
 	}
 
