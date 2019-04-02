@@ -1,6 +1,5 @@
 package com.example.android.baseconversion;
 
-
 public class BaseConverter
 {
 	public static final char[] HEX_CHARS = {'A','B','C','D','E','F'};
@@ -13,14 +12,14 @@ public class BaseConverter
 	 * @param num
 	 * @return result
 	 */
-	// TODO: IMPLEMENT OTHER CASES
-	public static String convertBinary(int num, String choice)
+	public static String convertBinary(long num, String choice)
 	{
 		String s = num + "";
-		int result = 0;
+		String resultString;
+		long result = 0;
 		int digitCounter = 0;
 
-		if (choice.equalsIgnoreCase("Decimal"))
+		if (!choice.equalsIgnoreCase("Binary"))
 		{
 			for (int i = s.length() - 1; i >= 0; i--)
 			{
@@ -30,22 +29,28 @@ public class BaseConverter
 			}
 		}
 
+		// checks if the specified conversion was only to decimal
+		if (choice.equalsIgnoreCase("Decimal"))
+		{
+			resultString = String.valueOf(result);
+		}
+
 		else if (choice.equalsIgnoreCase("Octal"))
 		{
-
+			resultString = convertDecimal(result, "Octal");
 		}
 
 		else if (choice.equalsIgnoreCase("Hexadecimal"))
 		{
-
+			resultString = convertDecimal(result, "Hexadecimal");
 		}
 
 		else
 		{
-			return String.valueOf(num);
+			resultString = String.valueOf(num);
 		}
 
-		return String.valueOf(result);
+		return resultString;
 	}
 
 	/**
@@ -55,14 +60,14 @@ public class BaseConverter
 	 * @param num
 	 * @return result
 	 */
-	// TODO: IMPLEMENT OTHER CASES
-	public static String convertOctal(int num, String choice)
+	public static String convertOctal(long num, String choice)
 	{
 		String s = num + "";
-		int result = 0;
+		String resultString;
+		long result = 0;
 		int digitCounter = 0;
 
-		if (choice.equalsIgnoreCase("Decimal"))
+		if (!choice.equalsIgnoreCase("Octal"))
 		{
 			for (int i = s.length() - 1; i >= 0; i--)
 			{
@@ -72,22 +77,27 @@ public class BaseConverter
 			}
 		}
 
+		if (choice.equalsIgnoreCase("Decimal"))
+		{
+			resultString = String.valueOf(result);
+		}
+
 		else if (choice.equalsIgnoreCase("Binary"))
 		{
-
+			resultString = convertDecimal(result, "Binary");
 		}
 
 		else if (choice.equalsIgnoreCase("Hexadecimal"))
 		{
-
+			resultString = convertDecimal(result, "Hexadecimal");
 		}
 
 		else
 		{
-			return String.valueOf(num);
+			resultString = String.valueOf(num);
 		}
 
-		return String.valueOf(result);
+		return resultString;
 	}
 
 	/**
@@ -97,14 +107,14 @@ public class BaseConverter
 	 * @param num
 	 * @return result
 	 */
-	// TODO: IMPLEMENT OTHER CASES
 	public static String convertHexadecimal(String num, String choice)
 	{
-		int result = 0;
+		long result = 0;
 		int digitCounter = 0;
+		String resultString;
 		boolean isChar;
 
-		if (choice.equalsIgnoreCase("Decimal"))
+		if (!choice.equalsIgnoreCase("Hexadecimal"))
 		{
 			for (int i = num.length() - 1; i >= 0; i--)
 			{
@@ -130,14 +140,19 @@ public class BaseConverter
 			}
 		}
 
+		if (choice.equalsIgnoreCase("Decimal"))
+		{
+			resultString = String.valueOf(result);
+		}
+
 		else if (choice.equalsIgnoreCase("Binary"))
 		{
-
+			resultString = convertDecimal(result, "Binary");
 		}
 
 		else if (choice.equalsIgnoreCase("Octal"))
 		{
-
+			resultString = convertDecimal(result, "Octal");
 		}
 
 		else
@@ -145,7 +160,7 @@ public class BaseConverter
 			return num;
 		}
 
-		return String.valueOf(result);
+		return resultString;
 	}
 
 	/**
@@ -155,15 +170,17 @@ public class BaseConverter
 	 * @param num, choice
 	 * @return result
 	 */
-	// TODO: FIX DECIMAL TO HEX CONVERTER
-	public static String convertDecimal(int num, String choice)
+	public static String convertDecimal(long num, String choice)
 	{
-		String s = num + "";
 		String temp = "";
 		String result = "";
+
+		if (num == 0)
+			return "0";
+
 		if ( choice.equalsIgnoreCase("Binary") )
 		{
-			for ( int i = 0; i <= s.length() + 1; i++ )
+			while (num != 0)
 			{
 				temp += num % 2 + "";
 				num /= 2;
@@ -172,7 +189,7 @@ public class BaseConverter
 
 		else if ( choice.equalsIgnoreCase("Octal") )
 		{
-			for ( int i = 0; i <= s.length() + 1; i++ )
+			while (num != 0)
 			{
 				temp += num % 8 + "";
 				num /= 8;
@@ -181,7 +198,7 @@ public class BaseConverter
 
 		else if ( choice.equalsIgnoreCase("Hexadecimal") )
 		{
-			for ( int i = 0; i <= s.length() + 1; i++ )
+			while (num != 0)
 			{
 				if ( num % 16 > 9 )
 				{

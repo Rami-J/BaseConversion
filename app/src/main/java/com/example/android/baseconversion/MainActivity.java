@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity
 	public void calculateResult(View v)
 	{
 		EditText editText = (EditText) findViewById(R.id.editText);
-		String resultString = "", hexString;
-		int num;
+		String resultString = "", hexString, inputString;
+		long num;
 
 		// statement to check if the text field is empty, preventing runtime errors
 		if (editText.getText().length() == 0)
@@ -76,11 +76,13 @@ public class MainActivity extends AppCompatActivity
 			return;
 		}
 
+		inputString = editText.getText().toString();
+
 		// handles exceptions when the user inputs characters other than A-F and 0-9
 		if (selectedItem1.equals("Hexadecimal"))
 		{
 			try {
-				Integer.parseInt(editText.getText().toString(), 16);
+				Long.parseLong(inputString, 16);
 			} catch (NumberFormatException e) {
 				displayResult("Invalid Input");
 				return;
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity
 		else
 		{
 			try {
-				Integer.parseInt(editText.getText().toString());
+				Long.parseLong(inputString);
 			} catch (NumberFormatException e) {
 				displayResult("Invalid Input");
 				return;
@@ -100,34 +102,34 @@ public class MainActivity extends AppCompatActivity
 		if (selectedItem1.equals("Decimal"))
 		{
 			// receives the currently inputted text from the editText widget
-			num = Integer.parseInt(editText.getText().toString());
+			num = Long.parseLong(inputString);
 			resultString = BaseConverter.convertDecimal(num, selectedItem2);
 		}
 		else if (selectedItem1.equals("Binary"))
 		{
 			// checks if the input is not a binary number
-			if (!isBinaryNumber(editText.getText().toString()))
+			if (!isBinaryNumber(inputString))
 			{
 				displayResult("Invalid Input");
 				return;
 			}
-			num = Integer.parseInt(editText.getText().toString());
+			num = Long.parseLong(inputString);
 			resultString = BaseConverter.convertBinary(num, selectedItem2);
 		}
 		else if (selectedItem1.equals("Octal"))
 		{
 			// checks if the input is not an octal number
-			if (!isOctalNumber(editText.getText().toString()))
+			if (!isOctalNumber(inputString))
 			{
 				displayResult("Invalid Input");
 				return;
 			}
-			num = Integer.parseInt(editText.getText().toString());
+			num = Long.parseLong(inputString);
 			resultString = BaseConverter.convertOctal(num, selectedItem2);
 		}
 		else if (selectedItem1.equals("Hexadecimal"))
 		{
-			hexString = editText.getText().toString();
+			hexString = inputString;
 			resultString = BaseConverter.convertHexadecimal(hexString, selectedItem2);
 		}
 
